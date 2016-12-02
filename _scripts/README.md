@@ -1,13 +1,42 @@
+>##################################################################
+>## WIP
+>##################################################################
+
 # Docker image of WSO2 Identity Server.
 
-## Tag
-- 5.3.0-alpha2
+## Tags
+- 5.3.0-alpha2 (latest)
 
 ## Description
 
+### Files
+>        - _scripts |
+>                   |- __configurations.sh
+>                   |- build.sh
+>                   |- common.sh
+>                   |- docker-compose.yml
+>                   |- Dockerfile
+>                   |- run.sh
+
+
 ## Usage
 
-        docker build 
+## 1. Build 
+
+* Build image from Dockerfile 
+
+        ./build.sh
+
+* Build image command line
+
+        docker build . 
+
+## 2. Run an Image
+
+        ./run.sh
+
+## 3. Using docker-compose
+
 
 
 ## Access
