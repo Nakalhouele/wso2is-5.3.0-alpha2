@@ -1,0 +1,13 @@
+wso2:
+    image: wso2
+    ports: 
+        - "9000:9443"
+        - "9001:9763"
+        - "9002:8000"
+        - "9003:10500"
+    links:
+        - db
+
+db:
+    image: mariadb
+    ports: 
