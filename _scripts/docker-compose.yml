@@ -1,13 +1,19 @@
-wso2:
-    image: wso2
-    ports: 
-        - "9000:9443"
-        - "9001:9763"
-        - "9002:8000"
-        - "9003:10500"
-    links:
-        - db
-
-db:
-    image: mariadb
-    ports: 
+version: '2'
+services:
+    wso2:
+        build: .
+        image: wso2is:5.3.0-alpha2
+        ports: 
+            - 9443:9443
+            - 9763:9763
+            - 8000:8000
+            - 10500:10500
+        depends_on:
+            - db
+    db:
+        image: dinkel/openldap
+        environment: 
+            SLAPD_PASSWORD: password
+            SLAPD_DOMAIN: ldap.fircosoft.com
+        ports: 
+            - 389:389
