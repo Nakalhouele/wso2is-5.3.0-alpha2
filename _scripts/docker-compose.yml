@@ -1,6 +1,7 @@
 version: '2'
 services:
     wso2:
+        container_name: wso2is_5.3.0-alpha2
         build: .
         image: wso2is:5.3.0-alpha2
         ports: 
@@ -11,6 +12,7 @@ services:
         depends_on:
             - db
     db:
+        container_name: openldap
         image: dinkel/openldap
         environment: 
             SLAPD_PASSWORD: password
