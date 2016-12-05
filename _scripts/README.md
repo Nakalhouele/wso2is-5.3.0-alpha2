@@ -12,11 +12,12 @@
 ### Files
 >        - _scripts |
 >                   |- __configurations.sh
->                   |- build.sh
+>                   |- build-dockerfile.sh
 >                   |- common.sh
+>                   |- compose.sh
 >                   |- docker-compose.yml
 >                   |- Dockerfile
->                   |- run.sh
+>                   |- run-dockerfile.sh
 
 
 ## Usage
@@ -56,6 +57,18 @@
 
 
 
-##########################
-# Remove image
-        docker rmi <IMAGE ID>
+#############################################################################
+# How to connect to a docker container from outside the host (same network)
+ [Windows]
+
+        1. Open Oracle VM VirtualBox Manager
+        2. Select the VM used by Docker
+        3. Click Settings -> Network
+        4. Adapter 1 should (default?) be "Attached to: NAT"
+        5. Click Advanced -> Port Forwarding
+        6. Add rule: Protocol TCP, Host Port 8080, Guest Port 8080 (leave 
+           Host IP and Guest IP empty)
+        7. You should now be able to browse to your container via 
+           localhost:8080 and your-internal-ip:8080.
+
+
