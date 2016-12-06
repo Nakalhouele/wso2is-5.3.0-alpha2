@@ -2,16 +2,31 @@ FROM openjdk:7
 MAINTAINER Romeo KONE <Romeo.Kone@fircosoft.com>
 
 # ARGS
-ARG WSO2_IS_VERSION=5.3.0-alpha2
+ARG WSO2_IS_VERSION=5.3.0-beta
 ARG ENVIRONMENT=PRODUCTION
 ARG WSO_SOURCE_URL=https://github.com/wso2/product-is/releases
+ARG GIT_SOURCE_URL=https://github.com/Nakalhouele/wso2is-5.3.0-alpha2.git
+ARG GIT_SOURCE_DIR="/opt/git_source_dir"
+ARG PROXY 
+ARG WSO2_ADMIN_USERNAME=admin
+ARG WSO2_ADMIN_PASSWORD=admin
 
+# PROXY
+ENV http_proxy ${PROXY}
+ENV HTTP_PROXY ${PROXY}
+ENV https_proxy ${PROXY}
+ENV HTTPS_PROXY ${PROXY}
 # WSO2 Identity Server version
 ENV WSO2_IS_VERSION ${WSO2_IS_VERSION}
 # WSO2 Identity Server home
 ENV IS_HOME=/opt/wso2is-$WSO2_IS_VERSION
 # Environment
 ENV ENVIRONMENT ${ENVIRONMENT}
+
+ENV GIT_SOURCE_URL ${GIT_SOURCE_URL}
+ENV GIT_SOURCE_DIR ${GIT_SOURCE_DIR}
+ENV WSO2_ADMIN_USERNAME ${WSO2_ADMIN_USERNAME}
+ENV WSO2_ADMIN_PASSWORD ${WSO2_ADMIN_PASSWORD} 
 
 # Update aptitude with new repo
 RUN apt-get update
@@ -27,29 +42,11 @@ RUN wget $WSO_SOURCE_URL/download/v$WSO2_IS_VERSION/wso2is-$WSO2_IS_VERSION.zip 
     && rm -rf /opt/wso2is-$WSO2_IS_VERSION.zip
 
 
-# ---------------------------------------------------
-# WSO2 Identity Server Configuration
-# - Clone conf from a repository 
-# - Backup old conf directory  
-# - Move new conf to wso2 identity server  
-# - Delete clonned repository (clean) 
-# ---------------------------------------------------
-RUN git clone https://github.com/Nakalhouele/wso2is-5.3.0-alpha2.git /opt/_tmp
-RUN mv -f $IS_HOME/repository/conf $IS_HOME/repository/conf.old
-RUN mv -f /opt/_tmp/conf $IS_HOME/repository/ 
-RUN rm -rf /opt/_tmp 
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!!!!!!!!!!!!!!!!! JUST FOR DEV !!!!!!!!!!!!!!!!!!!
-# 
-#RUN apt-get install nano vim 
+ADD entry-point.sh /opt/entry-point.sh
+RUN chmod +x /opt/entry-point.sh
 
 # Define data volumes
-#VOLUME ["$IS_HOME/repository/conf"]
-
-# !!!!!!!!!!!!!!!!!!!!! END !!!!!!!!!!!!!!!!!!!!!!!!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+VOLUME ["$IS_HOME/repository", "$GIT_SOURCE_DIR"]
 
 # Expose WSO2 Identity Server ports
 EXPOSE 9443
@@ -60,4 +57,4 @@ EXPOSE 10500
 WORKDIR $IS_HOME/bin/
 
 # Start WSO2 Identity Server
-ENTRYPOINT  ["./wso2server.sh"]
+ENTRYPOINT  ["sh", "/opt/entry-point.sh"]

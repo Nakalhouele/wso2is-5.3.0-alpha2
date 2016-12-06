@@ -1,9 +1,9 @@
 version: '2'
 services:
     wso2:
-        container_name: wso2is_5.3.0-alpha2
+        container_name: "wso2is_5.3.0-beta"
         build: .
-        image: wso2is:5.3.0-alpha2
+        image: wso2is:5.3.0-beta
         ports: 
             - 9443:9443
             - 9763:9763
@@ -11,11 +11,20 @@ services:
             - 10500:10500
         depends_on:
             - db
+        links: 
+            - "db:openldap"
+        volumes: 
+            - "/c/Users/koner/Documents/Kitematic/wso2is_5.3.0-beta/opt/wso2is-5.3.0-beta/repository/logs:/opt/wso2is-5.3.0-beta/repository/logs"
+            - "/c/Users/koner/Documents/Kitematic/wso2is_5.3.0-beta/opt/wso2is-5.3.0-beta/repository/conf:/opt/wso2is-5.3.0-beta/repository/conf"
+            - "/c/Users/koner/Documents/Kitematic/wso2is_5.3.0-beta/opt/wso2is-5.3.0-beta/repository/tenants:/opt/wso2is-5.3.0-beta/repository/tenants"
     db:
         container_name: openldap
-        image: dinkel/openldap
+        image: osixia/openldap:1.1.7
         environment: 
-            SLAPD_PASSWORD: password
-            SLAPD_DOMAIN: ldap.fircosoft.com
+            LDAP_BASE_DN: "ou=Users,dc=admin,dc=fircosoft,dc=com"
+            LDAP_ORGANISATION: "fircosoft"
+            LDAP_DOMAIN: "fircosoft.com"
+            LDAP_ADMIN_PASSWORD: "admin"
+            LDAP_CONFIG_PASSWORD: "admin"
         ports: 
             - 389:389

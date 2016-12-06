@@ -2,7 +2,9 @@
 # Configuration file
 
 PRODUCT_NAME=wso2is
-PRODUCT_TAG=5.3.0-alpha2
-PRODUCT_VERSION=5.3.0-alpha2
+PRODUCT_TAG=5.3.0-beta
+PRODUCT_VERSION=5.3.0-beta
 PRODUCT_ENVIRONMENT=PRODUCTION
 PRODUCT_SOURCE_URL=https://github.com/wso2/product-is/releases
+GIT_SOURCE_URL=https://github.com/Nakalhouele/wso2is-5.3.0-alpha2.git
+GIT_SOURCE_DIR="/opt/git_source_dir"

@@ -1,11 +1,11 @@
->##################################################################
->## WIP
->##################################################################
+> ##
+> # WIP
+
 
 # Docker image of WSO2 Identity Server.
 
 ## Tags
-- 5.3.0-alpha2 (latest)
+- 5.3.0-beta (latest)
 
 ## Description
 
@@ -21,41 +21,57 @@
 
 
 ## Usage
+ 
+### Default properties
 
-## 1. Build 
+> Some default values of properties are fixed in the __*Dockerfile*__.
 
-* Build image from Dockerfile 
+```
+WSO2_IS_VERSION = 5.3.0-beta
+ENVIRONMENT = PRODUCTION
+WSO_SOURCE_URL = https://github.com/wso2/product-is/releases
+GIT_SOURCE_URL = https://github.com/Nakalhouele/wso2is-5.3.0-alpha2.git
+GIT_SOURCE_DIR = "/opt/git_source_dir"
+PROXY   
+WSO2_ADMIN_USERNAME = admin
+WSO2_ADMIN_PASSWORD = admin
+tag_or_commit_version
+```
 
-        ./build.sh
+### Build Dockerfile
 
-* Build image command line
+- Default properties can be overrided using one or more __--build-arg__ flags.
+- Make sure you are in the same directory as the Dockerfile
 
-        docker build . 
+```
+docker build --force-rm \                               # 
+    --tag "$PRODUCT_NAME:$PRODUCT_TAG" \                # Set image name
+    --build-arg WSO2_IS_VERSION=$PRODUCT_VERSION \      # Override WSO2_IS_VERSION value
+    --build-arg WSO_SOURCE_URL=$PRODUCT_SOURCE_URL \    # Override WSO_SOURCE_URL value
+    --build-arg PROXY=$PROXY_URL \                      # Override PROXY value
+    --build-arg ENVIRONMENT=$PRODUCT_ENVIRONMENT .      # Override ENVIRONMENT value and build Dockerfile located in current directory.
+```
 
-## 2. Run an Image
+### Run image
 
-        ./run.sh
+- Default properties can be overrided using one or more __--env__ flags.
 
-## 3. Using docker-compose
+```
+docker run --hostname "${PRODUCT_NAME}" \                                           # Set hostname
+      --name "$CONTAINER_NAME" \                                                    # Set container name
+      -p 9443:9443 -p 9763:9763 -p 8000:8000 -p 10500:10500 \                       # Expose ports
+      --env WSO2_ADMIN_USERNAME="admin" --env WSO2_ADMIN_PASSWORD="password"\  # Set environment variables
+      -v "${PRODUCT_NAME}_repository:/opt/wso2is-$PRODUCT_VERSION/repository"\      # Mount volumes
+      -d "$image_id"                                                                # Image id to get/pull 
+```
+
 
 
 
 ## Access
 
-### External
-        https://docker_machine:32790/carbon
-
-### Internal
-    
-        https://localhost:9443/carbon
-
-
-
-
 ## RUN SH
-        
-
-
+     
 
 #############################################################################
 # How to connect to a docker container from outside the host (same network)

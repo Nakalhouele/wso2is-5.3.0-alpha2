@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
+      <Property name="ConnectionURL">ldap://openldap:389</Property>
+      <Property name="ConnectionName">uid=admin,ou=system</Property>
+      <Property encrypted="true" name="ConnectionPassword">kuv2MubUUveMyv6GeHrXr9il59ajJIqUI4eoYHcgGKf/BBFOWn96NTjJQI+wYbWjKW6r79S7L7ZzgYeWx7DlGbff5X3pBN2Gh9yV0BHP1E93QtFqR7uTWi141Tr7V7ZwScwNqJbiNoV+vyLbsqKJE7T3nP8Ih9Y6omygbcLcHzg=</Property>
+      <Property name="UserSearchBase">ou=Users,dc=fircosoft,dc=com</Property>
+      <Property name="UserEntryObjectClass">wso2Person</Property>
+      <Property name="UserNameAttribute">uid</Property>
+      <Property name="UserNameSearchFilter">(&amp;(objectClass=person)(uid=?))</Property>
+      <Property name="UserNameListFilter">(objectClass=person)</Property>
+      <Property name="UserDNPattern"/>
+      <Property name="DisplayNameAttribute"/>
+      <Property name="Disabled">false</Property>
+      <Property name="ReadGroups">true</Property>
+      <Property name="WriteGroups">true</Property>
+      <Property name="GroupSearchBase">ou=Groups,dc=fircosoft,dc=com</Property>
+      <Property name="GroupEntryObjectClass">groupOfNames</Property>
+      <Property name="GroupNameAttribute">cn</Property>
+      <Property name="GroupNameSearchFilter">(&amp;(objectClass=groupOfNames)(cn=?))</Property>
+      <Property name="GroupNameListFilter">(objectClass=groupOfNames)</Property>
+      <Property name="RoleDNPattern"/>
+      <Property name="MembershipAttribute">member</Property>
+      <Property name="MemberOfAttribute"/>
+      <Property name="BackLinksEnabled">false</Property>
+      <Property name="UserNameJavaRegEx">[a-zA-Z0-9._-|//]{3,30}$</Property>
+      <Property name="UserNameJavaScriptRegEx">^[\S]{3,30}$</Property>
+      <Property name="UsernameJavaRegExViolationErrorMsg">Username pattern policy violated.</Property>
+      <Property name="PasswordJavaRegEx">^[\S]{5,30}$</Property>
+      <Property name="PasswordJavaScriptRegEx">^[\S]{5,30}$</Property>
+      <Property name="PasswordJavaRegExViolationErrorMsg">Password pattern policy violated.</Property>
+      <Property name="RoleNameJavaRegEx">[a-zA-Z0-9._-|//]{3,30}$</Property>
+      <Property name="RoleNameJavaScriptRegEx">^[\S]{3,30}$</Property>
+      <Property name="SCIMEnabled">true</Property>
+      <Property name="BulkImportSupported">true</Property>
+      <Property name="EmptyRolesAllowed">true</Property>
+      <Property name="PasswordHashMethod">SHA</Property>
+      <Property name="MultiAttributeSeparator">,</Property>
+      <Property name="MaxUserNameListLength">100</Property>
+      <Property name="MaxRoleNameListLength">100</Property>
+      <Property name="kdcEnabled">false</Property>
+      <Property name="defaultRealmName">fircosoft.com</Property>
+      <Property name="UserRolesCacheEnabled">true</Property>
+      <Property name="ConnectionPoolingEnabled">false</Property>
+      <Property name="LDAPConnectionTimeout">5000</Property>
+      <Property name="ReadTimeout">5000</Property>
+      <Property name="RetryAttempts">0</Property>
+      <Property name="CountRetrieverClass"/>
+      <Property name="java.naming.ldap.attributes.binary"/>
+      <Property name="DomainName">fircosoft.com</Property>
+      <Property name="Description">Secondary user storage</Property>
+</UserStoreManager>

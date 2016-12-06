@@ -6,3 +6,5 @@
 >## [conf](#)
 >    This directory is a copy of Wso2 Identity Server conf directory.
 >
+
+dc=fircosoft,dc=com
